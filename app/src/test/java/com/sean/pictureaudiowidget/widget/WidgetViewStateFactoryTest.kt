@@ -18,8 +18,8 @@ class WidgetViewStateFactoryTest {
             )
         )
 
-        assertThat(viewState.title).isEqualTo("No media found")
-        assertThat(viewState.sortLabel).isEqualTo("Sort: RANDOM")
+        assertThat(viewState.title).isEqualTo("Ready to browse")
+        assertThat(viewState.sortLabel).isEqualTo("Random")
         assertThat(viewState.openImageEnabled).isFalse()
         assertThat(viewState.openAudioEnabled).isFalse()
     }
@@ -45,7 +45,7 @@ class WidgetViewStateFactoryTest {
         )
 
         assertThat(viewState.title).isEqualTo("Road Trip")
-        assertThat(viewState.subtitle).isEqualTo("Items: 3 • STRONG")
+        assertThat(viewState.subtitle).isEqualTo("3 items • image + audio")
         assertThat(viewState.imageUri).isEqualTo("content://images/7")
         assertThat(viewState.openImageEnabled).isTrue()
         assertThat(viewState.openAudioEnabled).isTrue()
