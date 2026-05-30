@@ -41,7 +41,7 @@ object WidgetViewStateFactory {
         val withoutExtension = substringBeforeLast('.', this)
             .replace('_', ' ')
             .replace('-', ' ')
-            .replace(Regex("\s+"), " ")
+            .replace(Regex("""\s+"""), " ")
             .trim()
         val cleaned = withoutExtension.ifBlank { this }
         return if (cleaned.length <= 30) cleaned else cleaned.take(27).trimEnd() + "…"
