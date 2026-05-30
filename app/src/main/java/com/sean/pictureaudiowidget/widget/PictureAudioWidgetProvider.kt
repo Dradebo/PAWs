@@ -58,13 +58,12 @@ class PictureAudioWidgetProvider : AppWidgetProvider() {
                 loadPreviewBitmap(context, viewState.imageUri)?.let {
                     setImageViewBitmap(R.id.widgetPreview, it)
                 } ?: setImageViewResource(R.id.widgetPreview, android.R.drawable.ic_menu_gallery)
-                setBoolean(R.id.buttonOpenImage, "setEnabled", viewState.openImageEnabled)
-                setBoolean(R.id.buttonOpenAudio, "setEnabled", viewState.openAudioEnabled)
-                setOnClickPendingIntent(R.id.buttonOpenImage, actionPendingIntent(context, appWidgetId, WidgetAction.OPEN_IMAGE))
-                setOnClickPendingIntent(R.id.buttonOpenAudio, actionPendingIntent(context, appWidgetId, WidgetAction.OPEN_AUDIO))
+                setBoolean(R.id.buttonOpenCurrent, "setEnabled", viewState.openCurrentEnabled)
+                setOnClickPendingIntent(R.id.buttonOpenCurrent, actionPendingIntent(context, appWidgetId, WidgetAction.OPEN_CURRENT))
+                setOnClickPendingIntent(R.id.buttonShuffle, actionPendingIntent(context, appWidgetId, WidgetAction.SHUFFLE))
                 setOnClickPendingIntent(R.id.buttonNext, actionPendingIntent(context, appWidgetId, WidgetAction.NEXT))
-                setOnClickPendingIntent(R.id.buttonSort, actionPendingIntent(context, appWidgetId, WidgetAction.SORT))
-                setOnClickPendingIntent(R.id.widgetPreview, actionPendingIntent(context, appWidgetId, WidgetAction.OPEN_IMAGE))
+                setOnClickPendingIntent(R.id.widgetSortMode, actionPendingIntent(context, appWidgetId, WidgetAction.SORT))
+                setOnClickPendingIntent(R.id.widgetPreview, actionPendingIntent(context, appWidgetId, WidgetAction.OPEN_CURRENT))
             }
         }
 

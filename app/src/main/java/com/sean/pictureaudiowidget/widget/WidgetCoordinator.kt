@@ -9,7 +9,8 @@ class WidgetCoordinator(
 ) {
     suspend fun snapshot(widgetId: Int): WidgetSnapshot {
         val state = widgetStateStore.getOrCreate(widgetId)
-        val items = mediaCatalogRepository.loadCatalog()
+        val selectedSources = state.selectedSourceBucketSet()
+        val items = mediaCatalogRepository.loadCatalog(selectedSources)
         val currentId = WidgetNavigator.currentItemId(
             items = items,
             sortMode = state.sortMode,
@@ -25,12 +26,13 @@ class WidgetCoordinator(
             sortMode = state.sortMode,
             currentItem = currentItem,
             totalItems = items.size,
+            selectedSourceCount = selectedSources.size,
         )
     }
 
     suspend fun next(widgetId: Int): WidgetSnapshot {
         val state = widgetStateStore.getOrCreate(widgetId)
-        val items = mediaCatalogRepository.loadCatalog()
+        val items = mediaCatalogRepository.loadCatalog(state.selectedSourceBucketSet())
         val nextId = WidgetNavigator.nextItemId(
             items = items,
             sortMode = state.sortMode,
@@ -41,9 +43,14 @@ class WidgetCoordinator(
         return snapshot(widgetId)
     }
 
+    suspend fun shuffle(widgetId: Int): WidgetSnapshot {
+        widgetStateStore.shuffle(widgetId)
+        return next(widgetId)
+    }
+
     suspend fun cycleSort(widgetId: Int): WidgetSnapshot {
         val state = widgetStateStore.cycleSortMode(widgetId)
-        val items = mediaCatalogRepository.loadCatalog()
+        val items = mediaCatalogRepository.loadCatalog(state.selectedSourceBucketSet())
         val currentId = WidgetNavigator.currentItemId(
             items = items,
             sortMode = state.sortMode,

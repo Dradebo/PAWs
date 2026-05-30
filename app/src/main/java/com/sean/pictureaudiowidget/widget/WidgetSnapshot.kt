@@ -8,4 +8,5 @@ data class WidgetSnapshot(
     val sortMode: SortMode,
     val currentItem: WidgetMediaItem?,
     val totalItems: Int,
+    val selectedSourceCount: Int,
 )

@@ -28,8 +28,10 @@ What needs careful handling:
 ## v1 scope
 - single widget type
 - single current item at a time
-- four controls: Image, Audio, Next, Sort
-- sort modes: Random, Size, Recent
+- full-bleed image preview that fills the widget
+- bottom-right overlay icon controls: open/play current item, shuffle, next
+- compact sort chip: Random, Size, Recent
+- per-widget source folder selection so widgets do not browse all device media
 - simple pairing strategy for local image/audio items
 - per-widget state persistence
 - debug APK release assets for manual testing

@@ -18,10 +18,15 @@ class WidgetActionReceiver : BroadcastReceiver() {
         val pendingResult = goAsync()
         CoroutineScope(Dispatchers.IO).launch {
             when (WidgetAction.from(intent.getStringExtra(EXTRA_ACTION))) {
+                WidgetAction.OPEN_CURRENT -> openCurrent(context, appWidgetId)
                 WidgetAction.OPEN_IMAGE -> openCurrentImage(context, appWidgetId)
                 WidgetAction.OPEN_AUDIO -> openCurrentAudio(context, appWidgetId)
                 WidgetAction.NEXT -> {
                     context.appContainer.widgetCoordinator.next(appWidgetId)
+                    PictureAudioWidgetProvider.updateWidget(context, appWidgetId)
+                }
+                WidgetAction.SHUFFLE -> {
+                    context.appContainer.widgetCoordinator.shuffle(appWidgetId)
                     PictureAudioWidgetProvider.updateWidget(context, appWidgetId)
                 }
                 WidgetAction.SORT -> {
@@ -31,6 +36,16 @@ class WidgetActionReceiver : BroadcastReceiver() {
                 null -> Unit
             }
             pendingResult.finish()
+        }
+    }
+
+    private suspend fun openCurrent(context: Context, appWidgetId: Int) {
+        val snapshot = context.appContainer.widgetCoordinator.snapshot(appWidgetId)
+        val current = snapshot.currentItem ?: return
+        if (current.hasAudio) {
+            openCurrentAudio(context, appWidgetId)
+        } else {
+            openCurrentImage(context, appWidgetId)
         }
     }
 

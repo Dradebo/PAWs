@@ -5,6 +5,5 @@ data class WidgetViewState(
     val subtitle: String,
     val sortLabel: String,
     val imageUri: String?,
-    val openImageEnabled: Boolean,
-    val openAudioEnabled: Boolean,
+    val openCurrentEnabled: Boolean,
 )

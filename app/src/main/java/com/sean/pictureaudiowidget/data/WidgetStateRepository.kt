@@ -21,9 +21,31 @@ class WidgetStateRepository(
         return updated
     }
 
+    override suspend fun shuffle(widgetId: Int): WidgetStateEntity {
+        val current = getOrCreate(widgetId)
+        val updated = current.copy(
+            sortMode = SortMode.RANDOM,
+            currentMediaId = null,
+            randomSeed = (System.currentTimeMillis() xor widgetId.toLong()).toInt(),
+        )
+        dao.upsert(updated)
+        return updated
+    }
+
     override suspend fun setCurrentMediaId(widgetId: Int, mediaId: String?): WidgetStateEntity {
         val current = getOrCreate(widgetId)
         val updated = current.copy(currentMediaId = mediaId)
+        dao.upsert(updated)
+        return updated
+    }
+
+    override suspend fun setSelectedSourceBuckets(widgetId: Int, buckets: Set<String>): WidgetStateEntity {
+        val current = getOrCreate(widgetId)
+        val updated = current.copy(
+            selectedSourceBuckets = buckets.sorted().joinToString(separator = "
+"),
+            currentMediaId = null,
+        )
         dao.upsert(updated)
         return updated
     }

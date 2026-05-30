@@ -3,38 +3,33 @@ package com.sean.pictureaudiowidget.widget
 object WidgetViewStateFactory {
     fun create(snapshot: WidgetSnapshot): WidgetViewState {
         val current = snapshot.currentItem
-        return if (current == null) {
-            WidgetViewState(
-                title = "Ready to browse",
-                subtitle = "Grant media permissions, then refresh.",
+        return when {
+            snapshot.selectedSourceCount == 0 -> WidgetViewState(
+                title = "Choose folders",
+                subtitle = "Configure this widget source",
                 sortLabel = snapshot.sortMode.label(),
                 imageUri = null,
-                openImageEnabled = false,
-                openAudioEnabled = false,
+                openCurrentEnabled = false,
             )
-        } else {
-            WidgetViewState(
+            current == null -> WidgetViewState(
+                title = "No media found",
+                subtitle = "${snapshot.selectedSourceCount} source folder(s)",
+                sortLabel = snapshot.sortMode.label(),
+                imageUri = null,
+                openCurrentEnabled = false,
+            )
+            else -> WidgetViewState(
                 title = current.displayTitle.cleanMediaTitle(),
-                subtitle = "${snapshot.totalItems.compactCount()} items • ${current.pairingConfidence.friendlyLabel()}",
+                subtitle = "${snapshot.totalItems.compactCount()} items • ${current.bucketName.orEmpty().folderLabel()}",
                 sortLabel = snapshot.sortMode.label(),
                 imageUri = current.imageUri,
-                openImageEnabled = current.hasImage,
-                openAudioEnabled = current.hasAudio,
+                openCurrentEnabled = current.hasImage || current.hasAudio,
             )
         }
     }
 
     private fun com.sean.pictureaudiowidget.media.SortMode.label(): String {
         return name.lowercase().replaceFirstChar { it.titlecase() }
-    }
-
-    private fun com.sean.pictureaudiowidget.media.PairingConfidence.friendlyLabel(): String {
-        return when (this) {
-            com.sean.pictureaudiowidget.media.PairingConfidence.STRONG -> "image + audio"
-            com.sean.pictureaudiowidget.media.PairingConfidence.MEDIUM -> "likely pair"
-            com.sean.pictureaudiowidget.media.PairingConfidence.WEAK -> "loose pair"
-            com.sean.pictureaudiowidget.media.PairingConfidence.NONE -> "image only"
-        }
     }
 
     private fun String.cleanMediaTitle(): String {
@@ -44,7 +39,13 @@ object WidgetViewStateFactory {
             .replace(Regex("""\s+"""), " ")
             .trim()
         val cleaned = withoutExtension.ifBlank { this }
-        return if (cleaned.length <= 30) cleaned else cleaned.take(27).trimEnd() + "…"
+        return if (cleaned.length <= 34) cleaned else cleaned.take(31).trimEnd() + "…"
+    }
+
+    private fun String.folderLabel(): String {
+        val trimmed = trim('/').ifBlank { "selected folder" }
+        val last = trimmed.substringAfterLast('/').ifBlank { trimmed }
+        return if (last.length <= 22) last else last.take(19).trimEnd() + "…"
     }
 
     private fun Int.compactCount(): String {

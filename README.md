@@ -7,9 +7,9 @@ Implemented app pieces
 - deterministic filename normalization and pairing
 - sortable widget catalog: random, size, recency
 - per-widget Room-backed state persistence
-- widget actions: open image, open audio, next, sort
+- widget actions: open/play current item, shuffle, next, sort chip
 - main app screen for permission grant and widget refresh
-- widget configuration activity
+- widget configuration activity with per-widget source folder selection
 - in-app audio playback activity using Media3 ExoPlayer
 
 Unit-tested logical modules

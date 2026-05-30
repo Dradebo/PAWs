@@ -10,4 +10,11 @@ data class WidgetStateEntity(
     val sortMode: SortMode,
     val currentMediaId: String? = null,
     val randomSeed: Int = widgetId,
-)
+    val selectedSourceBuckets: String = "",
+) {
+    fun selectedSourceBucketSet(): Set<String> = selectedSourceBuckets
+        .lineSequence()
+        .map { it.trim() }
+        .filter { it.isNotEmpty() }
+        .toSet()
+}

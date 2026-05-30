@@ -13,7 +13,9 @@ class AppContainer(context: Context) {
     private val applicationContext = context.applicationContext
 
     private val database: AppDatabase by lazy {
-        Room.databaseBuilder(applicationContext, AppDatabase::class.java, "picture-audio-widget.db").build()
+        Room.databaseBuilder(applicationContext, AppDatabase::class.java, "picture-audio-widget.db")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     val mediaCatalogRepository: MediaCatalogRepository by lazy {

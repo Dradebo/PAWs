@@ -24,11 +24,12 @@ class WidgetViewStateFormattingTest {
                     pairingConfidence = PairingConfidence.NONE,
                 ),
                 totalItems = 44648,
+                selectedSourceCount = 1,
             )
         )
 
         assertThat(viewState.title).isEqualTo("IMG 20240901 WA0002")
-        assertThat(viewState.subtitle).isEqualTo("44.6k items • image only")
+        assertThat(viewState.subtitle).isEqualTo("44.6k items • Camera")
         assertThat(viewState.sortLabel).isEqualTo("Random")
     }
 }

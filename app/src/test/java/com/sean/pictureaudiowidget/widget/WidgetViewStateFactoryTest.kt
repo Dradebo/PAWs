@@ -8,24 +8,24 @@ import org.junit.Test
 
 class WidgetViewStateFactoryTest {
     @Test
-    fun `builds empty state when no media is available`() {
+    fun `builds folder setup state when no sources are selected`() {
         val viewState = WidgetViewStateFactory.create(
             WidgetSnapshot(
                 widgetId = 7,
                 sortMode = SortMode.RANDOM,
                 currentItem = null,
                 totalItems = 0,
+                selectedSourceCount = 0,
             )
         )
 
-        assertThat(viewState.title).isEqualTo("Ready to browse")
+        assertThat(viewState.title).isEqualTo("Choose folders")
         assertThat(viewState.sortLabel).isEqualTo("Random")
-        assertThat(viewState.openImageEnabled).isFalse()
-        assertThat(viewState.openAudioEnabled).isFalse()
+        assertThat(viewState.openCurrentEnabled).isFalse()
     }
 
     @Test
-    fun `builds populated state with media specific actions`() {
+    fun `builds populated full bleed state with unified current action`() {
         val viewState = WidgetViewStateFactory.create(
             WidgetSnapshot(
                 widgetId = 7,
@@ -41,13 +41,13 @@ class WidgetViewStateFactoryTest {
                     pairingConfidence = PairingConfidence.STRONG,
                 ),
                 totalItems = 3,
+                selectedSourceCount = 1,
             )
         )
 
         assertThat(viewState.title).isEqualTo("Road Trip")
-        assertThat(viewState.subtitle).isEqualTo("3 items • image + audio")
+        assertThat(viewState.subtitle).isEqualTo("3 items • Trips")
         assertThat(viewState.imageUri).isEqualTo("content://images/7")
-        assertThat(viewState.openImageEnabled).isTrue()
-        assertThat(viewState.openAudioEnabled).isTrue()
+        assertThat(viewState.openCurrentEnabled).isTrue()
     }
 }
