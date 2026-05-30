@@ -162,6 +162,15 @@ Because local Android build tools are unavailable here, CI is the source of trut
 - use debug APKs first for device testing
 - later add signing secrets for release builds
 
+## Current screenshot-review handoff
+
+The next cleanup pass is documented in `docs/NEXT_RUN_WIDGET_CLEANUP.md`.
+It captures the `v0.2.0-alpha.1` screenshot findings:
+- launcher shows `Can't load widget`
+- folder source selection is a messy flat list of raw paths
+- folder selection needs a tree structure with search/counts/parent selection
+- the main app needs a stronger control-center design
+
 ## Current environment constraints
 Current workspace limitations:
 - Java not installed
