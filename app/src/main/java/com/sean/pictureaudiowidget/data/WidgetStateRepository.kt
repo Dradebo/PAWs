@@ -6,8 +6,12 @@ class WidgetStateRepository(
     private val dao: WidgetStateDao,
 ) : WidgetStateStore {
     override suspend fun getOrCreate(widgetId: Int): WidgetStateEntity {
-        return dao.get(widgetId) ?: WidgetStateEntity(widgetId = widgetId, sortMode = SortMode.RANDOM)
-            .also(dao::upsert)
+        val existing = dao.get(widgetId)
+        if (existing != null) return existing
+
+        val created = WidgetStateEntity(widgetId = widgetId, sortMode = SortMode.RANDOM)
+        dao.upsert(created)
+        return created
     }
 
     override suspend fun cycleSortMode(widgetId: Int): WidgetStateEntity {
