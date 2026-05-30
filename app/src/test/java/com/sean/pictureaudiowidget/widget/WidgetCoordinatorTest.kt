@@ -115,8 +115,7 @@ class WidgetCoordinatorTest {
         }
 
         override suspend fun setSelectedSourceBuckets(widgetId: Int, buckets: Set<String>): WidgetStateEntity {
-            val updated = getOrCreate(widgetId).copy(selectedSourceBuckets = buckets.sorted().joinToString("
-"), currentMediaId = null)
+            val updated = getOrCreate(widgetId).copy(selectedSourceBuckets = buckets.sorted().joinToString("\n"), currentMediaId = null)
             data[widgetId] = updated
             saved += updated
             return updated

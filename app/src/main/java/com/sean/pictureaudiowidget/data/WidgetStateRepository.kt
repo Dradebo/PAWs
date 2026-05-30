@@ -42,8 +42,7 @@ class WidgetStateRepository(
     override suspend fun setSelectedSourceBuckets(widgetId: Int, buckets: Set<String>): WidgetStateEntity {
         val current = getOrCreate(widgetId)
         val updated = current.copy(
-            selectedSourceBuckets = buckets.sorted().joinToString(separator = "
-"),
+            selectedSourceBuckets = buckets.sorted().joinToString(separator = "\n"),
             currentMediaId = null,
         )
         dao.upsert(updated)
