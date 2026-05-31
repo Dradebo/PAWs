@@ -1,51 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#080B12"
-    android:orientation="vertical"
-    android:padding="24dp">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="PAWs"
-        android:textColor="#F8FAFC"
-        android:textSize="34sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="Picture + audio widgets for your local media."
-        android:textColor="#94A3B8"
-        android:textSize="16sp" />
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:background="@drawable/app_panel_bg"
         android:orientation="vertical"
-        android:padding="18dp">
+        android:padding="24dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Library status"
-            android:textColor="#E2E8F0"
-            android:textSize="14sp"
+            android:text="PAWs"
+            android:textColor="#F8FAFC"
+            android:textSize="34sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/statusText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Checking permissions…"
-            android:textColor="#CBD5E1"
-            android:textSize="15sp" />
+            android:layout_marginTop="6dp"
+            android:text="Picture, audio, and widget source control."
+            android:textColor="#94A3B8"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/app_panel_bg"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textColor="#E2E8F0"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Checking permissions…"
+                android:textColor="#F8FAFC"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/librarySummaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#CBD5E1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/sourceSummaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#94A3B8"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/app_panel_bg"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Widget workflow"
+                android:textColor="#E2E8F0"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/workflowSummaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#CBD5E1"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/folderBrowserButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/app_button_tertiary_bg"
+                android:text="Preview folder tree"
+                android:textAllCaps="false"
+                android:textColor="#E2E8F0" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/permissionButton"
@@ -67,4 +125,4 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF" />
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

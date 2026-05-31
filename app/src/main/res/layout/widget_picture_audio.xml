@@ -12,11 +12,13 @@
         android:scaleType="centerCrop"
         android:src="@android:drawable/ic_menu_gallery" />
 
-    <View
+    <TextView
+        android:id="@+id/widgetBottomScrim"
         android:layout_width="match_parent"
         android:layout_height="112dp"
         android:layout_gravity="bottom"
-        android:background="@drawable/widget_scrim_bottom" />
+        android:background="@drawable/widget_scrim_bottom"
+        android:text="" />
 
     <TextView
         android:id="@+id/widgetSortMode"
@@ -35,6 +37,7 @@
         android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/widgetTextBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
