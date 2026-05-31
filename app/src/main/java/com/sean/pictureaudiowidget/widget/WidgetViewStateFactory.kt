@@ -8,24 +8,49 @@ object WidgetViewStateFactory {
                 title = "Choose folders",
                 subtitle = "Configure this widget source",
                 sortLabel = snapshot.sortMode.label(),
-                imageUri = null,
-                openCurrentEnabled = false,
+                previewUri = null,
+                viewerEnabled = false,
+                viewerLabel = "◱",
+                playEnabled = false,
+                playVisible = false,
+                playLabel = "▶",
+                nextEnabled = false,
             )
             current == null -> WidgetViewState(
                 title = "No media found",
                 subtitle = "${snapshot.selectedSourceCount} source folder(s)",
                 sortLabel = snapshot.sortMode.label(),
-                imageUri = null,
-                openCurrentEnabled = false,
+                previewUri = null,
+                viewerEnabled = false,
+                viewerLabel = "◱",
+                playEnabled = false,
+                playVisible = false,
+                playLabel = "▶",
+                nextEnabled = false,
             )
             else -> WidgetViewState(
                 title = current.displayTitle.cleanMediaTitle(),
-                subtitle = "${snapshot.totalItems.compactCount()} items • ${current.bucketName.orEmpty().folderLabel()}",
+                subtitle = subtitleFor(current, snapshot.totalItems),
                 sortLabel = snapshot.sortMode.label(),
-                imageUri = current.imageUri,
-                openCurrentEnabled = current.hasImage || current.hasAudio,
+                previewUri = current.previewUri,
+                viewerEnabled = current.canOpenViewer,
+                viewerLabel = "◱",
+                playEnabled = current.canPlay,
+                playVisible = current.canPlay,
+                playLabel = if (current.hasVideo) "▶" else "▶",
+                nextEnabled = snapshot.totalItems > 1,
             )
         }
+    }
+
+    private fun subtitleFor(current: com.sean.pictureaudiowidget.media.WidgetMediaItem, totalItems: Int): String {
+        val kindLabel = when {
+            current.hasVideo -> "video"
+            current.hasAudio && current.hasImage -> "photo + sound"
+            current.hasAudio -> "sound"
+            else -> current.bucketName.orEmpty().folderLabel()
+        }
+        return "${totalItems.compactCount()} items • $kindLabel"
     }
 
     private fun com.sean.pictureaudiowidget.media.SortMode.label(): String {

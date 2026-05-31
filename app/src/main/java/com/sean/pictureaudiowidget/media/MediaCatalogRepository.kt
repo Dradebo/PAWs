@@ -5,8 +5,9 @@ interface MediaCatalogRepository {
 
     suspend fun loadCatalog(sourceBuckets: Set<String>): List<WidgetMediaItem> {
         if (sourceBuckets.isEmpty()) return emptyList()
+        val normalized = sourceBuckets.map { it.trim().trim('/') }.toSet()
         return loadCatalog().filter { item ->
-            item.bucketName?.let { bucket -> sourceBuckets.contains(bucket) } == true
+            item.bucketName?.trim()?.trim('/')?.let { bucket -> normalized.contains(bucket) } == true
         }
     }
 

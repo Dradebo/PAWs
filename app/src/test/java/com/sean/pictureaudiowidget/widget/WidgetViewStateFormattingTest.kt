@@ -17,6 +17,7 @@ class WidgetViewStateFormattingTest {
                     id = "x",
                     imageUri = "content://images/7",
                     audioUri = null,
+                    videoUri = null,
                     displayTitle = "IMG-20240901-WA0002.jpg",
                     sizeBytes = 10,
                     modifiedAtEpochMillis = 100,
@@ -31,5 +32,6 @@ class WidgetViewStateFormattingTest {
         assertThat(viewState.title).isEqualTo("IMG 20240901 WA0002")
         assertThat(viewState.subtitle).isEqualTo("44.6k items • Camera")
         assertThat(viewState.sortLabel).isEqualTo("Random")
+        assertThat(viewState.playVisible).isFalse()
     }
 }

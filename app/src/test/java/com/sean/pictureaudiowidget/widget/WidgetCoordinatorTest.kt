@@ -12,10 +12,10 @@ import org.junit.Test
 
 class WidgetCoordinatorTest {
     private val catalog = listOf(
-        WidgetMediaItem("a", "content://images/1", null, "Old", 10, 100, "Trips", PairingConfidence.NONE),
-        WidgetMediaItem("b", "content://images/2", "content://audio/2", "Newest", 20, 300, "Trips", PairingConfidence.STRONG),
-        WidgetMediaItem("c", null, "content://audio/3", "Middle", 30, 200, "Trips", PairingConfidence.NONE),
-        WidgetMediaItem("d", "content://images/4", null, "Other", 40, 400, "Other", PairingConfidence.NONE),
+        WidgetMediaItem("a", "content://images/1", null, null, "Old", 10, 100, "Trips", PairingConfidence.NONE),
+        WidgetMediaItem("b", "content://images/2", "content://audio/2", null, "Newest", 20, 300, "Trips", PairingConfidence.STRONG),
+        WidgetMediaItem("c", null, "content://audio/3", null, "Middle", 30, 200, "Trips", PairingConfidence.NONE),
+        WidgetMediaItem("d", "content://images/4", null, null, "Other", 40, 400, "Other", PairingConfidence.NONE),
     )
 
     @Test
@@ -62,9 +62,7 @@ class WidgetCoordinatorTest {
 
     @Test
     fun `snapshot is empty until widget has selected sources`() = runBlocking {
-        val stateStore = FakeWidgetStateStore(
-            WidgetStateEntity(widgetId = 9, sortMode = SortMode.RANDOM)
-        )
+        val stateStore = FakeWidgetStateStore(WidgetStateEntity(widgetId = 9, sortMode = SortMode.RANDOM))
         val coordinator = WidgetCoordinator(FakeCatalogRepository(catalog), stateStore)
 
         val snapshot = coordinator.snapshot(9)
@@ -74,15 +72,11 @@ class WidgetCoordinatorTest {
         assertThat(snapshot.selectedSourceCount).isEqualTo(0)
     }
 
-    private class FakeCatalogRepository(
-        private val items: List<WidgetMediaItem>,
-    ) : MediaCatalogRepository {
+    private class FakeCatalogRepository(private val items: List<WidgetMediaItem>) : MediaCatalogRepository {
         override suspend fun loadCatalog(): List<WidgetMediaItem> = items
     }
 
-    private class FakeWidgetStateStore(
-        initial: WidgetStateEntity,
-    ) : WidgetStateStore {
+    private class FakeWidgetStateStore(initial: WidgetStateEntity) : WidgetStateStore {
         private val data = mutableMapOf(initial.widgetId to initial)
         val saved = mutableListOf<WidgetStateEntity>()
 
@@ -115,7 +109,8 @@ class WidgetCoordinatorTest {
         }
 
         override suspend fun setSelectedSourceBuckets(widgetId: Int, buckets: Set<String>): WidgetStateEntity {
-            val updated = getOrCreate(widgetId).copy(selectedSourceBuckets = buckets.sorted().joinToString("\n"), currentMediaId = null)
+            val updated = getOrCreate(widgetId).copy(selectedSourceBuckets = buckets.sorted().joinToString("
+"), currentMediaId = null)
             data[widgetId] = updated
             saved += updated
             return updated

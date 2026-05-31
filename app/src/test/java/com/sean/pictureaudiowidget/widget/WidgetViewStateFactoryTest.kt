@@ -21,11 +21,12 @@ class WidgetViewStateFactoryTest {
 
         assertThat(viewState.title).isEqualTo("Choose folders")
         assertThat(viewState.sortLabel).isEqualTo("Random")
-        assertThat(viewState.openCurrentEnabled).isFalse()
+        assertThat(viewState.viewerEnabled).isFalse()
+        assertThat(viewState.playVisible).isFalse()
     }
 
     @Test
-    fun `builds populated full bleed state with unified current action`() {
+    fun `builds image plus audio state with viewer and play actions`() {
         val viewState = WidgetViewStateFactory.create(
             WidgetSnapshot(
                 widgetId = 7,
@@ -34,6 +35,7 @@ class WidgetViewStateFactoryTest {
                     id = "x",
                     imageUri = "content://images/7",
                     audioUri = "content://audio/9",
+                    videoUri = null,
                     displayTitle = "Road Trip",
                     sizeBytes = 10,
                     modifiedAtEpochMillis = 100,
@@ -46,8 +48,10 @@ class WidgetViewStateFactoryTest {
         )
 
         assertThat(viewState.title).isEqualTo("Road Trip")
-        assertThat(viewState.subtitle).isEqualTo("3 items • Trips")
-        assertThat(viewState.imageUri).isEqualTo("content://images/7")
-        assertThat(viewState.openCurrentEnabled).isTrue()
+        assertThat(viewState.subtitle).isEqualTo("3 items • photo + sound")
+        assertThat(viewState.previewUri).isEqualTo("content://images/7")
+        assertThat(viewState.viewerEnabled).isTrue()
+        assertThat(viewState.playVisible).isTrue()
+        assertThat(viewState.playEnabled).isTrue()
     }
 }

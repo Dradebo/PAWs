@@ -5,12 +5,13 @@ import org.junit.Test
 
 class MediaPermissionPolicyTest {
     @Test
-    fun `android 33 plus requires split image and audio permissions`() {
+    fun `android 33 plus requires split media permissions`() {
         val result = MediaPermissionPolicy.requiredPermissions(34)
 
         assertThat(result.toList()).containsExactly(
             "android.permission.READ_MEDIA_IMAGES",
             "android.permission.READ_MEDIA_AUDIO",
+            "android.permission.READ_MEDIA_VIDEO",
         ).inOrder()
     }
 

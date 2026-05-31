@@ -5,9 +5,9 @@ import org.junit.Test
 
 class MediaSorterTest {
     private val items = listOf(
-        WidgetMediaItem("a", "img://a", null, "Old Small", 10, 100, "folder", PairingConfidence.NONE),
-        WidgetMediaItem("b", "img://b", null, "New Medium", 20, 300, "folder", PairingConfidence.NONE),
-        WidgetMediaItem("c", "img://c", null, "Mid Large", 30, 200, "folder", PairingConfidence.NONE),
+        WidgetMediaItem("a", "img://a", null, null, "Old Small", 10, 100, "folder", PairingConfidence.NONE),
+        WidgetMediaItem("b", "img://b", null, null, "New Medium", 20, 300, "folder", PairingConfidence.NONE),
+        WidgetMediaItem("c", "img://c", null, null, "Mid Large", 30, 200, "folder", PairingConfidence.NONE),
     )
 
     @Test

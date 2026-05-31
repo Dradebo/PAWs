@@ -1,7 +1,7 @@
 package com.sean.pictureaudiowidget.media
 
 object MediaPairer {
-    fun pair(images: List<MediaEntry>, audios: List<MediaEntry>): List<WidgetMediaItem> {
+    fun pair(images: List<MediaEntry>, audios: List<MediaEntry>, videos: List<MediaEntry>): List<WidgetMediaItem> {
         val audioBuckets = audios.groupBy { it.bucketName to it.normalizedBaseName }
         val usedAudioIds = linkedSetOf<String>()
         val paired = mutableListOf<WidgetMediaItem>()
@@ -16,6 +16,7 @@ object MediaPairer {
                     id = image.id,
                     imageUri = image.uri,
                     audioUri = exact.uri,
+                    videoUri = null,
                     displayTitle = image.title,
                     sizeBytes = image.sizeBytes + exact.sizeBytes,
                     modifiedAtEpochMillis = maxOf(image.modifiedAtEpochMillis, exact.modifiedAtEpochMillis),
@@ -27,6 +28,7 @@ object MediaPairer {
                     id = image.id,
                     imageUri = image.uri,
                     audioUri = null,
+                    videoUri = null,
                     displayTitle = image.title,
                     sizeBytes = image.sizeBytes,
                     modifiedAtEpochMillis = image.modifiedAtEpochMillis,
@@ -42,6 +44,7 @@ object MediaPairer {
                     id = audio.id,
                     imageUri = null,
                     audioUri = audio.uri,
+                    videoUri = null,
                     displayTitle = audio.title,
                     sizeBytes = audio.sizeBytes,
                     modifiedAtEpochMillis = audio.modifiedAtEpochMillis,
@@ -49,6 +52,20 @@ object MediaPairer {
                     pairingConfidence = PairingConfidence.NONE,
                 )
             }
+
+        videos.forEach { video ->
+            paired += WidgetMediaItem(
+                id = video.id,
+                imageUri = null,
+                audioUri = null,
+                videoUri = video.uri,
+                displayTitle = video.title,
+                sizeBytes = video.sizeBytes,
+                modifiedAtEpochMillis = video.modifiedAtEpochMillis,
+                bucketName = video.bucketName,
+                pairingConfidence = PairingConfidence.NONE,
+            )
+        }
 
         return paired
     }

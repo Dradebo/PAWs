@@ -8,6 +8,7 @@ data class MediaEntry(
     val sizeBytes: Long,
     val modifiedAtEpochMillis: Long,
     val bucketName: String?,
+    val mediaKind: MediaKind,
 ) {
     companion object {
         fun create(
@@ -17,6 +18,7 @@ data class MediaEntry(
             sizeBytes: Long,
             modifiedAtEpochMillis: Long,
             bucketName: String?,
+            mediaKind: MediaKind,
         ): MediaEntry = MediaEntry(
             id = id,
             uri = uri,
@@ -24,7 +26,8 @@ data class MediaEntry(
             normalizedBaseName = MediaNameNormalizer.normalize(title),
             sizeBytes = sizeBytes,
             modifiedAtEpochMillis = modifiedAtEpochMillis,
-            bucketName = bucketName,
+            bucketName = bucketName?.trim()?.trim('/'),
+            mediaKind = mediaKind,
         )
     }
 }

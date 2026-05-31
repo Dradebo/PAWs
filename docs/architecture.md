@@ -29,7 +29,7 @@ What needs careful handling:
 - single widget type
 - single current item at a time
 - full-bleed image preview that fills the widget
-- bottom-right overlay icon controls: open/play current item, shuffle, next
+- bottom-right overlay controls: open viewer, play when playable, next
 - compact sort chip: Random, Size, Recent
 - per-widget source folder selection so widgets do not browse all device media
 - simple pairing strategy for local image/audio items

@@ -9,6 +9,7 @@ object MediaPermissionPolicy {
             arrayOf(
                 Manifest.permission.READ_MEDIA_IMAGES,
                 Manifest.permission.READ_MEDIA_AUDIO,
+                Manifest.permission.READ_MEDIA_VIDEO,
             )
         } else {
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)

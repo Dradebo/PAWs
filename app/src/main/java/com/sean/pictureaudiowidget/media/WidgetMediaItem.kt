@@ -4,6 +4,7 @@ data class WidgetMediaItem(
     val id: String,
     val imageUri: String?,
     val audioUri: String?,
+    val videoUri: String?,
     val displayTitle: String,
     val sizeBytes: Long,
     val modifiedAtEpochMillis: Long,
@@ -12,4 +13,8 @@ data class WidgetMediaItem(
 ) {
     val hasImage: Boolean get() = !imageUri.isNullOrBlank()
     val hasAudio: Boolean get() = !audioUri.isNullOrBlank()
+    val hasVideo: Boolean get() = !videoUri.isNullOrBlank()
+    val canOpenViewer: Boolean get() = hasImage || hasAudio || hasVideo
+    val canPlay: Boolean get() = hasAudio || hasVideo
+    val previewUri: String? get() = imageUri
 }
